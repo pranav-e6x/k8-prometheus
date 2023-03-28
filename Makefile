@@ -4,7 +4,7 @@ SHELL=bash
 UNAME := $(shell uname)
 PURPOSE:=metrics
 SERVICE_NAME:=custom-metrics-apiserver
-ALT_NAMES:="custom-metrics-apiserver.monitoring","custom-metrics-apiserver.monitoring.svc"
+ALT_NAMES:="custom-metrics-apiserver.monitoring5","custom-metrics-apiserver.monitoring5.svc"
 SECRET_FILE:=custom-metrics-api/cm-adapter-serving-certs.yaml
 
 certs: gensecret rmcerts
@@ -27,7 +27,7 @@ gensecret: gencerts
 	@echo "kind: Secret" >> $(SECRET_FILE)
 	@echo "metadata:" >> $(SECRET_FILE)
 	@echo " name: cm-adapter-serving-certs" >> $(SECRET_FILE)
-	@echo " namespace: monitoring" >> $(SECRET_FILE)
+	@echo " namespace: monitoring5" >> $(SECRET_FILE)
 	@echo "data:" >> $(SECRET_FILE)
 ifeq ($(UNAME), Darwin)
 	@echo " serving.crt: $$(cat output/apiserver.pem | base64)" >> $(SECRET_FILE)
@@ -45,7 +45,7 @@ rmcerts:
 
 .PHONY: deploy
 deploy:
-	kubectl create -f ./namespaces.yaml
+	kubectl create -f ./namespaces5.yaml
 	kubectl create -f ./metrics-server
 	kubectl create -f ./prometheus
 	kubectl create -f ./custom-metrics-api

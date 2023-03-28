@@ -4,7 +4,7 @@ metadata:
   labels:
     app: custom-metrics-apiserver
   name: custom-metrics-apiserver
-  namespace: monitoring
+  namespace: monitoring5
 spec:
   replicas: 1
   selector:
@@ -19,19 +19,21 @@ spec:
       serviceAccountName: custom-metrics-apiserver
       containers:
       - name: custom-metrics-apiserver
-        image: quay.io/coreos/k8s-prometheus-adapter-amd64:v0.4.1
+        image: quay.io/coreos/k8s-prometheus-adapter-amd64:v0.8.4
         args:
         - /adapter
-        - --secure-port=6443
-        - --tls-cert-file=/var/run/serving-cert/serving.crt
-        - --tls-private-key-file=/var/run/serving-cert/serving.key
+        - --secure-port=443
         - --logtostderr=true
-        - --prometheus-url=http://prometheus.monitoring.svc:9090/
+        - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+        - --prometheus-url=http://prometheus.monitoring5.svc:9090/
         - --metrics-relist-interval=30s
         - --v=10
         - --config=/etc/adapter/config.yaml
+        - --cert-dir=/tmp
+        - --kubelet-insecure=tls
+        
         ports:
-        - containerPort: 6443
+        - containerPort: 443
         volumeMounts:
         - mountPath: /var/run/serving-cert
           name: volume-serving-cert

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: adapter-config
-  namespace: monitoring
+  namespace: monitoring5
 data:
   config.yaml: |
     rules:

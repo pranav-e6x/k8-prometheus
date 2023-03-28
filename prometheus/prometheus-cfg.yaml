@@ -5,7 +5,7 @@ metadata:
   labels:
     app: prometheus
   name: prometheus-config
-  namespace: monitoring
+  namespace: monitoring5
 data:
   prometheus.yml: |
     # A scrape configuration for running Prometheus on a Kubernetes cluster.

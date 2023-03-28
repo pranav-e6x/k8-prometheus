@@ -14,7 +14,7 @@ observed CPU utilization and later on based on memory usage.
 In Kubernetes 1.6 a new API Custom Metrics API was introduced that enables HPA access to arbitrary metrics. 
 And Kubernetes 1.7 introduced the aggregation layer that allows 3rd party applications to extend the 
 Kubernetes API by registering themselves as API add-ons. 
-The Custom Metrics API along with the aggregation layer made it possible for monitoring systems 
+The Custom Metrics API along with the aggregation layer made it possible for monitoring5 systems 
 like Prometheus to expose application-specific metrics to the HPA controller.
 
 The Horizontal Pod Autoscaler is implemented as a control loop that periodically queries 
@@ -166,13 +166,13 @@ And a second component that extends the Kubernetes custom metrics API with the m
 
 You will deploy Prometheus and the adapter in a dedicated namespace. 
 
-Create the `monitoring` namespace:
+Create the `monitoring5` namespace:
 
 ```bash
 kubectl create -f ./namespaces.yaml
 ```
 
-Deploy Prometheus v2 in the `monitoring` namespace:
+Deploy Prometheus v2 in the `monitoring5` namespace:
 
 *If you are deploying to GKE you might get an error saying: `Error from server (Forbidden): error when creating`
 This will help you resolve that issue:* [RBAC on GKE](https://github.com/coreos/prometheus-operator/blob/master/Documentation/troubleshooting.md)
@@ -200,10 +200,10 @@ List the custom metrics provided by Prometheus:
 kubectl get --raw "/apis/custom.metrics.k8s.io/v1beta1" | jq .
 ```
 
-Get the FS usage for all the pods in the `monitoring` namespace:
+Get the FS usage for all the pods in the `monitoring5` namespace:
 
 ```bash
-kubectl get --raw "/apis/custom.metrics.k8s.io/v1beta1/namespaces/monitoring/pods/*/kubelet_container_log_filesystem_used_bytes" | jq .
+kubectl get --raw "/apis/custom.metrics.k8s.io/v1beta1/namespaces/monitoring5/pods/*/kubelet_container_log_filesystem_used_bytes" | jq .
 ```
 
 ### Auto Scaling based on custom metrics
